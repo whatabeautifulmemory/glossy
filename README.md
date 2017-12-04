@@ -24,3 +24,7 @@ KDFS 2017 - 윈도우 이벤트 로그(.evtx) 분석 도구
 - 문서 인쇄
 - 무선 네트워크 연결정보
 - 자동실행(스케줄러 / Run / BHO)
+
+## 관련 링크 
+- KDFS 2017 디지털 포렌식 챌린지 : http://forensic.korea.ac.kr/2017/KDFS_2017_challenge.html
+- 고려대학교 디지털포렌식연구센터 : http://forensic.korea.ac.kr/project/2017_challenge.html
