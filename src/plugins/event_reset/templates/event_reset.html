@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}이벤트 로그 초기화{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/event_reset.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>이벤트 로그 초기화</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_detail" aria-controls="detail" role="tab"
+                                                          data-toggle="tab">이벤트 상세분석</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_detail">
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+
+                            <th>초기화된 이벤트 로그</th>
+                            <th>사용자명</th>
+                            <th>도메인명</th>
+                            <th>백업 경로</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

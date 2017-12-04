@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}시스템 로그온 이력{% endblock %}
+
+{% block include_stylesheets %}
+    <style type="text/css">
+        .c3-region.regionGreen {
+          fill: green;
+        }
+        .c3-region.regionRed {
+          fill: red;
+        }
+        .c3-region.regionBlue {
+          fill: blue;
+        }
+    </style>
+{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/logon.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>시스템 로그온 이력</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_dashboard" aria-controls="dashboard" role="tab" data-toggle="tab">대시보드</a></li>
+                <li role="presentation"><a href="#id_detail" aria-controls="detail" role="tab" data-toggle="tab">이벤트 상세분석</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_dashboard">
+                    <div id='id_chart'></div>
+                    <br>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="active"><th>로그인 유형별</th><th>로그인 계정별</th></tr>
+                            <tr>
+                                <td width="50%">
+                                    <div id='id_logon_type_chart_' style="height:350px;"></div>
+                                </td>
+                                <td>
+                                    <div id='id_logon_account_chart_' style="height:350px;"></div>
+                                </td>
+                            </tr>
+                        </thead>
+
+                    </table>
+
+
+                    <div>
+                        <table id="id_summary" class="table table-bordered table-hover">
+                            <thead >
+                                <tr  class="active">
+                                    <th width="15%">구분</th><th>횟수</th><th width="15%">구분</th><th>횟수</th>
+                                </tr>
+                            </thead>
+                            <tr><td class="active">로컬 로그온</td><td id="local_logon">-</td><td class="active">로컬 로그오프</td><td id="local_logoff">-</td></tr>
+                            <tr><td class="active">네트워크 로그온</td><td id="network_logon">-</td><td class="active">로그인 실패</td><td id="logon_fail">-</td></tr>
+                            <tr><td class="active">원격 로그온</td><td id="remote_logon">-</td class="active"><td>-</td><td>-</td></tr>
+                            <tr><td class="active">화면잠금 해제</td><td id="screenlock_logon">-</td><td class="active">화면 잠금</td><td id="screenlock_logoff">-</td></tr>
+
+                        </table>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_detail">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_events);" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset btn-sm">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><div id="id_filter_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_eventid"></div> </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_computer"></div></div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_type"></div> </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><div id="id_filter_status"></div> </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_targetusername"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+
+                            <th>구분</th>
+                            <th>상태</th>
+                            <th>로그인아이디</th>
+                            <th>일시</th>
+                            <th>기타</th>
+                            <th>아이피</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

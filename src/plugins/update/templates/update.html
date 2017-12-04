@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Windows Update 이벤트{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/update.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>Windows Update 이벤트</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_win7_detail" aria-controls="win7_detail" role="tab" data-toggle="tab">[Win 7] 업데이트 현황</a></li>
+                <li role="presentation" ><a href="#id_win10_detail" aria-controls="win10_detail" role="tab" data-toggle="tab">[Win 10] 업데이트 현황</a></li>
+                <li role="presentation" ><a href="#id_detail" aria-controls="detail" role="tab" data-toggle="tab">이벤트 상세분석</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div role="tabpanel" class="tab-pane active" id="id_win7_detail">
+                    <br>
+                    <table id="id_table_w7" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>업데이트 발표날짜</th>
+                            <th>제품명</th>
+                            <th>플랫폼</th>
+
+                            <th>번호</th>
+                            <th>다운로드</th>
+                            <th>업데이트 설치일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="id_win10_detail">
+                    <br>
+                    <table id="id_table_w10" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>업데이트 발표날짜</th>
+                            <th>제품명</th>
+                            <th>플랫폼</th>
+
+                            <th>번호</th>
+                            <th>다운로드</th>
+                            <th>업데이트 설치일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+
+                <div role="tabpanel" class="tab-pane" id="id_detail">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td><b>필터링 도구</b></td>
+                                    <td align="right">
+                                        <button onclick="yadcf.exFilterExternallyTriggered(table_events);" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                        </button>
+                                        <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset btn-sm">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_source"></div> </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localtimecreated"></div></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_computer"></div> </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_update_title"></div> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+                            <th>업데이트명</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+

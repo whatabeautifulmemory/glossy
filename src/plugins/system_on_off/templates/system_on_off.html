@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}시스템 On/Off 이벤트{% endblock %}
+
+{% block include_stylesheets %}
+    <style type="text/css">
+        .c3-region.regionGreen {
+            fill: green;
+        }
+
+        .c3-region.regionRed {
+            fill: red;
+        }
+    </style>
+{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/system_on_off.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>시스템 On/Off 이벤트</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_dashboard" aria-controls="dashboard" role="tab"
+                                                          data-toggle="tab">시스템 ON/OFF 현황</a></li>
+                <li role="presentation"><a href="#id_detail" aria-controls="detail" role="tab"
+                                           data-toggle="tab">이벤트 상세분석</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_dashboard">
+                    <br>
+                    <div id='id_chart'></div>
+                    <br>
+                    <div>
+
+                        <table id="id_summary" class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="active">
+                                    <th>구분</th>
+                                    <th>시스템 시작</th>
+                                    <th>시스템 종료</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="active">일반모드</td>
+                                    <td id="normalmode_on">0회</td>
+                                    <td id="normalmode_off">0회</td>
+                                </tr>
+                                <tr>
+                                    <td class="active">안전모드</td>
+                                    <td id="safemode_on">0회</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="active">강제종료</td>
+                                    <td>-</td>
+                                    <td id="forced_off"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">절전모드</td>
+                                    <td id="saving_on">-</td>
+                                    <td id="saving_off">0회</td>
+                                </tr>
+                                <tr >
+                                    <th class="active">전체</th>
+                                    <th id="total_on" class="success">0회</th>
+                                    <th id="total_off" class="success">0회</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_detail">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td><b>필터링 도구</b></td>
+                                    <td align="right" >
+                                        <button onclick="yadcf.exFilterExternallyTriggered(table_events);" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                        </button>
+                                        <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset btn-sm">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_source"></div> </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localtimecreated"></div></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><div id="id_filter_provider"></div> </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_eventid"></div> </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_computer"></div></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_status"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>상태</th>
+                            <th>컴퓨터</th>
+                            <th>일시</th>
+                            <th>비고</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

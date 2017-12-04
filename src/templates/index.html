@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Glossy Event Log Forensics{% endblock %}
+
+{% block include_stylesheets %}
+    <link rel="stylesheet" href="/static/vendors/datatables/extensions/Select/css/select.bootstrap.min.css">
+{% endblock %}
+
+{% block include_scripts %}
+    <script>
+        function delete_sources(list_of_id){
+            var is_finished = $(".status_processed").text() === $(".status_total").text();
+
+            if (!is_finished){
+                swal({
+                    title: "인덱싱 진행 중",
+                    text: "인덱싱 진행 도중 삭제할 수 없습니다.",
+                    type: "warning"
+                });
+
+                return false;
+            }else{
+                axios({
+                    method: "post",
+                    url:"/api",
+                    responseType: "json",
+                    data:{
+                        id: 1,
+                        method: "delete_sources",
+                        params: list_of_id
+                    }
+                }).then(function(response){
+                    refresh_sources();
+                });
+
+                return true;
+            }
+        }
+
+        function datatables_index_source_delete_renderer(pk){
+            return "<a href=\"#\" onclick=\"delete_sources(['" + pk + "']);return false;\" class=\"label label-danger\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> 삭제</a>";
+        }
+
+        function refresh_sources(){
+            axios({
+                method: "post",
+                url:"/api",
+                responseType: "json",
+                data:{
+                    id: 1,
+                    method: "list_source"
+                }
+            }).then(function(response){
+                var sources = response.data.result;
+
+                $("#id_table_sources").DataTable({
+                    columnDefs: [
+                        {
+                            orderable: false,
+                            className: 'select-checkbox',
+                            render: function(data, type, row){ return ""; },
+                            targets: 0
+                        },
+                        {
+                            render: datatables_index_source_delete_renderer,
+                            targets: [3]
+                        }
+                    ],
+                    select: {
+                        style:    'multi',
+                        selector: 'td:first-child'
+                    },
+                    columns: [
+                        { data: null },
+                        { data: "pk" },
+                        { data: "path" },
+                        { data: "pk" }
+                    ],
+
+                    buttons: [
+                        "selectAll",
+                        "selectNone",
+                        {
+                            text: '<i class="fa fa-trash-o" aria-hidden="true"></i> 선택된 항목 삭제',
+                            action: function ( e, dt, node, config ) {
+                                var list_of_id = [];
+                                var selected_rows = dt.rows('.selected').data();
+
+                                for(var idx=0; idx < selected_rows.length; idx++){
+                                    var row = selected_rows[idx];
+                                    list_of_id.push(row.pk);
+                                }
+
+                                delete_sources(list_of_id);
+                            }
+                        }
+                    ],
+                    language: {
+                        buttons: {
+                            selectAll: "<i class=\"fa fa-check-square-o\" aria-hidden=\"true\"></i> 모두 선택",
+                            selectNone: "<i class=\"fa fa-square-o\" aria-hidden=\"true\"></i> 모두 선택해제"
+                        }
+                    },
+
+                    data: sources,
+                    colReorder: true,
+                    autoWidth: false,
+                    scrollX: false,
+                    lengthMenu: [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
+                    dom: 'Brtipl',
+
+                    bDestroy: true
+                });
+            });
+        }
+
+        $(document).ready(function(){
+            refresh_sources();
+            setTimeout("refresh_current_status()", 100);
+            setInterval("refresh_current_status()", 1000);
+
+            $('#sidebar-menu a[href^="/plugin/"]').click(function() {
+                var is_finished = $(".status_processed").text() === $(".status_total").text();
+
+                if (!is_finished){
+                    swal({
+                        title: "인덱싱 진행 중",
+                        text: "인덱싱 진행 중에는 분석기능을 사용할 수 없습니다.",
+                        type: "warning"
+                    });
+
+                    return false;
+                }else{
+                    return true;
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="row top_tiles">
+        <div class="row top_tiles">
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-file-code-o"></i></div>
+                    <div class="count status_sources">-</div>
+                    <h3>Sources</h3>
+                    <p>등록된 EVTX 파일 수</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-tasks"></i></div>
+                    <span class="count status_processed">-</span><span class="count"> / </span><span
+                        class="count status_total">-</span>
+                    <h3>Status</h3>
+                    <p>(처리된 EVTX 파일 수 / 분석대상 EVTX 파일 수)</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-comments-o"></i></div>
+                    <div class="count status_events">-</div>
+                    <h3>Events</h3>
+                    <p>로딩된 모든 이벤트 건수</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row top_tiles">
+            <div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tile-stats" style="padding: 5px 5px 5px 5px;">
+                    <h2>EVTX 파일 목록</h2>
+
+                    <table id="id_table_sources" class="table table-condensed table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>파일 ID</th>
+                            <th>파일명</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3">데이터를 불러오고 있습니다...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

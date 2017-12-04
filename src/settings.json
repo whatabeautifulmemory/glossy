@@ -1,0 +1,97 @@
+{
+    "HOST": "127.0.0.1",
+    "PORT": 9494,
+    "DATABASE_NAME": "",
+    "DEBUG": false,
+    "DEBUG_LOG_FILENAME": "glossy.log",
+    "DEBUG_LOG_LEVEL": "DEBUG",
+
+    "TEMP_DIR": "./temp/",
+    "TEMPLATE_PATH": "./templates/",
+
+    "TIME_ZONE": "Asia/Seoul",
+
+    "ENABLED_PLUGINS": {
+        "Show All Events": {
+            "icon": "search",
+            "plugin": "./plugins/show_all/show_all.py:ShowAllPlugin"
+        },
+        "System": {
+            "icon": "desktop",
+            "children": {
+                "System On/Off": {
+                    "plugin": "./plugins/system_on_off/system_on_off.py:SystemOnOffPlugin"
+                },
+
+                "Autoruns": {
+                    "plugin": "./plugins/autoruns/autoruns.py:AutorunsPlugin"
+                },
+
+                "Firewall": {
+                    "plugin": "./plugins/firewall/firewall.py:FirewallPlugin"
+                },
+
+                "Time Change": {
+                    "plugin": "./plugins/time_change/time_change.py:TimeChangePlugin"
+                },
+
+                "Windows Update": {
+                    "plugin": "./plugins/update/update.py:UpdatePlugin"
+                },
+
+                "Event Reset": {
+                    "plugin": "./plugins/event_reset/event_reset.py:EventResetPlugin"
+                },
+
+                "Services": {
+                    "plugin": "./plugins/services/services.py:ServicesPlugin"
+                }
+            }
+        },
+        "Account": {
+            "icon": "users",
+            "children": {
+                "Account Logon": {
+                    "plugin": "./plugins/logon/logon.py:LogonPlugin"
+                },
+                "RDP Logon": {
+                    "plugin": "./plugins/rdp_logon/rdp_logon.py:RDPLogonPlugin"
+                },
+                "Account Events": {
+                    "plugin": "./plugins/account/account.py:AccountPlugin"
+                }
+            }
+        },
+        "Application":{
+            "icon": "window-maximize",
+            "children": {
+                "Process Execution": {
+                    "plugin": "./plugins/process/process.py:ProcessPlugin"
+                },
+                "Application Error": {
+                    "plugin": "./plugins/application_errors/application_errors.py:ApplicationErrorsPlugin"
+                },
+                "Software Installation": {
+                    "plugin": "./plugins/software_install/software_install.py:SoftwareInstallPlugin"
+                }
+            }
+        },
+        "Hardware": {
+            "icon": "microchip",
+            "children": {
+                "USB Storage": {
+                    "plugin": "./plugins/usb_storage/usb_storage.py:USBStoragePlugin"
+                },
+                "CD/DVD Recording": {
+                    "plugin": "./plugins/cd_recording/cd_recording.py:CDRecordingPlugin"
+                },
+                "Document Printing": {
+                    "plugin": "./plugins/document_printing/document_printing.py:DocumentPrintingPlugin"
+                },
+                "Wireless Connect": {
+                    "plugin": "./plugins/wireless/wireless.py:WirelessPlugin"
+                }
+            }
+        }
+    }
+}

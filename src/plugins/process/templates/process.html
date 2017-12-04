@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}프로세스 실행정보{% endblock %}
+
+{% block include_stylesheets %}
+    <style>
+        .process_dashboard_chart{
+            height: 280px;
+{#            border: 2px dotted black;#}
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/process.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>프로세스 실행정보</h1>
+
+        <div id="id_process" class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_dashboard" aria-controls="dashboard" role="tab"
+                                                          data-toggle="tab">통계</a></li>
+                <li role="presentation"><a href="#id_security_auditing" aria-controls="detail" role="tab"
+                                           data-toggle="tab">이벤트 상세분석(Security-Auditing)</a></li>
+                <li role="presentation"><a href="#id_application_experience" aria-controls="detail" role="tab"
+                                           data-toggle="tab">이벤트 상세분석(Application-Experience)</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_dashboard" style="margin-top: 15px;">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#id_chart_tab_security_auditing" aria-controls="detail" role="tab"
+                                                   data-toggle="tab">프로세스 실행통계(Security-Auditing)</a></li>
+                        <li role="presentation"><a href="#id_chart_tab_application_experience" aria-controls="detail" role="tab"
+                                                   data-toggle="tab">프로세스 실행통계(Application-Experience)</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="id_chart_tab_security_auditing">
+                            <div id="id_chart_security_auditing" class="process_dashboard_chart"></div>
+
+                            <hr>
+
+                            <table id="id_table_summary_security_auditing" class="table table-condensed table-hover table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>프로세스</th>
+                                    <th>실행횟수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">데이터를 불러오고 있습니다...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="id_chart_tab_application_experience">
+                            <div id="id_chart_application_experience" class="process_dashboard_chart"></div>
+
+                            <hr>
+
+                            <table id="id_table_summary_application_experience" class="table table-condensed table-hover table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>프로세스</th>
+                                    <th>실행횟수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">데이터를 불러오고 있습니다...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_security_auditing">
+                     <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_events_security_auditing);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_events_security_auditing);$('#id_security_auditing .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_security_auditing_newprocessname"></div> </div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_security_auditing_parentprocessname"></div> </div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_security_auditing_commandline"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_summary_chart_security_auditing" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events_security_auditing" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일명</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+
+                            <th>프로세스 ID</th>
+                            <th>프로세스 이름</th>
+                            <th>부모 프로세스 이름</th>
+                            <th>명령행</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_application_experience">
+                     <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_events_application_experience);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_events_application_experience);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_application_experience_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_application_experience_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_application_experience_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_application_experience_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_application_experience_exepath"></div> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_summary_chart_application_experience" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events_application_experience" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일명</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+
+                            <th>프로세스 ID</th>
+                            <th>프로세스 이름</th>
+                            <th>FixName</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

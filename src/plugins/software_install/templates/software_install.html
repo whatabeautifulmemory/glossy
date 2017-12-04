@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block title %}소프트웨어 설치{% endblock %}
+
+{% block include_stylesheets %}
+    <style>
+        .software_install_heatmap{
+            height: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/software_install.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>소프트웨어 설치</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_msi_installer" aria-controls="msi_installer" role="tab" data-toggle="tab">MsiInstaller</a></li>
+                <li role="presentation"><a href="#id_program_inventory" aria-controls="program_inventory" role="tab" data-toggle="tab">Program-Inventory</a></li>
+                <li role="presentation"><a href="#id_shell_core" aria-controls="shell_core" role="tab" data-toggle="tab">Shell-Core/Operational</a></li>
+                <li role="presentation"><a href="#id_registry" aria-controls="registry" role="tab" data-toggle="tab">Registry</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_msi_installer">
+                    <h2>MsiInstaller 설치 로그</h2>
+
+                    <div style="padding: 10px 10px 10px 10px;">
+                        <div id="id_installation_heatmap_msi" class="software_install_heatmap">
+                            데이터를 불러오고 있습니다...
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="id_installation_heatmap_msi_prev" class="btn btn-default">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button id="id_installation_heatmap_msi_next" class="btn btn-default">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_msiinstaller);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_msiinstaller);$('#id_msi_installer .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_eventid"></div></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_software_name"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_msiinstaller_vendor_name"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="id_table_msiinstaller"
+                           class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+                            <th>소프트웨어 이름</th>
+                            <th>소프트웨어 버전</th>
+                            <th>소프트웨어 제조사</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_program_inventory">
+                    <h2>Program Inventory(Microsoft-Windows-Application-Experience/Program-Inventory) 설치 로그</h2>
+
+                    <div style="padding: 10px 10px 10px 10px">
+                        <div id="id_installation_heatmap_program_inventory" class="software_install_heatmap">
+                            데이터를 불러오고 있습니다...
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="id_installation_heatmap_program_inventory_prev" class="btn btn-default">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button id="id_installation_heatmap_program_inventory_next" class="btn btn-default">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_program_inventory);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_program_inventory);$('#id_program_inventory .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_eventid"></div></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_software_name"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_program_inventory_vendor_name"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="id_table_program_inventory" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+
+                            <th>소프트웨어 이름</th>
+                            <th>소프트웨어 버전</th>
+                            <th>소프트웨어 제조사</th>
+                            <th>언어</th>
+                            <th>Source</th>
+                            <th>프로그램 ID</th>
+                            <th>프로그램 인스턴스 ID</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="13">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_shell_core">
+                    <h2>Shell-Core(Microsoft-Windows-Shell-Core/Operational) 설치 로그</h2>
+
+                    <div style="padding: 10px 10px 10px 10px">
+                        <div id="id_installation_heatmap_shell_core" class="software_install_heatmap">
+                            데이터를 불러오고 있습니다...
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="id_installation_heatmap_shell_core_prev" class="btn btn-default">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button id="id_installation_heatmap_shell_core_next" class="btn btn-default">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_shell_core);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_shell_core);$('#id_shell_core .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_shell_core_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_shell_core_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_shell_core_computer"></div></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_shell_core_name"></div> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <table id="id_table_shell_core" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+
+                            <th>Name</th>
+                            <th>AppID</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_registry">
+                    <h2>레지스트리 감사 로그 중 Uninstall 키 변경 이력</h2>
+
+                    <div style="padding: 10px 10px 10px 10px">
+                        <div id="id_installation_heatmap_registry" class="software_install_heatmap">
+                            데이터를 불러오고 있습니다...
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="id_installation_heatmap_registry_prev" class="btn btn-default">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button id="id_installation_heatmap_registry_next" class="btn btn-default">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <hr>
+
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_registry);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_registry);$('#id_registry .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_registry_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_registry_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_registry_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_registry_computer"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="overflow: auto">
+                        <table id="id_table_registry" class="table table-condensed table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>이벤트 파일</th>
+                                <th>Provider</th>
+                                <th>이벤트 ID</th>
+                                <th>이벤트 유형</th>
+                                <th>컴퓨터</th>
+
+                                <th>ObjectName</th>
+                                <th>OperationType</th>
+                                <th>ObjectValueName</th>
+                                <th>HandleID</th>
+                                <th>OldValueType</th>
+                                <th>OldValue</th>
+                                <th>NewValueType</th>
+                                <th>NewValue</th>
+                                <th>ProcessId</th>
+                                <th>ProcessName</th>
+
+                                <th>일시</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="15">데이터를 불러오고 있습니다...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

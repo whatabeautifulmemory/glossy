@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}어플리케이션 에러{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/application_errors.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>어플리케이션 에러</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_statistics" aria-controls="statistics" role="tab" data-toggle="tab">프로세스별 에러 발생 통계</a></li>
+                <li role="presentation"><a href="#id_detail" aria-controls="detail" role="tab" data-toggle="tab">이벤트 상세분석</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_statistics">
+                    <table id="id_table_statistics" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>프로세스 경로</th>
+                            <th>발생횟수</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_detail">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_events);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_events_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_events_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_events_provider"></div> </div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><div id="id_filter_events_eventid"></div> </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><div id="id_filter_events_computer"></div></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><div id="id_filter_events_processname"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div id="id_filter_events_processpath"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id="id_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일명</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+                            <th>프로세스 ID</th>
+                            <th>프로세스 이름</th>
+                            <th>프로세스 경로</th>
+                            <th>모듈 이름</th>
+                            <th>에러 오프셋</th>
+                            <th>에러 코드</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="11">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

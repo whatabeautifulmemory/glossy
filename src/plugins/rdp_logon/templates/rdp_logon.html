@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}원격 데스크탑(RDP) 연결정보{% endblock %}
+
+{% block include_stylesheets %}
+    <link rel="stylesheet" href="/static/vendors/cytoscape.js-panzoom/cytoscape.js-panzoom.css">
+    <style>
+    #cy {
+        width: 100%;
+        height: 580px;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+    </style>
+{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="/static/vendors/cytoscape.js/cytoscape.min.js"></script>
+    <script type="text/javascript" src="/static/vendors/cytoscape.js-panzoom/cytoscape-panzoom.js"></script>
+
+    <script type="text/javascript" src="./static/rdp_logon.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>RDP 로그온 이력</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_graph" aria-controls="graph" role="tab"
+                                                          data-toggle="tab">접속 관계도</a></li>
+                <li role="presentation"><a href="#id_security_auditing" aria-controls="security_auditing" role="tab"
+                                           data-toggle="tab">Security-Auditing</a></li>
+                <li role="presentation"><a href="#id_localsessionmanager" aria-controls="localsessionmanager" role="tab"
+                                           data-toggle="tab">TerminalServices-LocalSessionManager</a></li>
+                <li role="presentation"><a href="#id_remoteconnectionmanager" aria-controls="remoteconnectionmanager" role="tab"
+                                           data-toggle="tab">TerminalServices-RemoteConnectionManager</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_graph">
+                    <div id="cy">
+                        데이터를 불러오고 있습니다...
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_security_auditing">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_security_auditing);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_security_auditing);$('#id_security_auditing .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_security_auditing_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_security_auditing_ipaddress"></div> </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_security_auditing_country"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_security_auditing_domain"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_security_auditing_username"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id="id_security_auditing_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_security_auditing"
+                           class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+                            <th>원격지 IP</th>
+                            <th>국가</th>
+                            <th>도메인</th>
+                            <th>사용자</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_localsessionmanager">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_localsessionmanager);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_localsessionmanager);$('#id_localsessionmanager .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localsessionmanager_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localsessionmanager_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localsessionmanager_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localsessionmanager_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><div id="id_filter_localsessionmanager_ipaddress"></div> </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><div id="id_filter_localsessionmanager_country"></div></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"><div id="id_filter_localsessionmanager_username"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id="id_localsessionmanager_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_localsessionmanager" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+                            <th>원격지 IP</th>
+                            <th>국가</th>
+                            <th>사용자</th>
+                            <th>세션 ID</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_remoteconnectionmanager">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_remoteconnectionmanager);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_remoteconnectionmanager);$('#id_remoteconnectionmanager .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_remoteconnectionmanager_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_remoteconnectionmanager_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_remoteconnectionmanager_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_remoteconnectionmanager_computer"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_remoteconnectionmanager_ipaddress"></div> </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_remoteconnectionmanager_country"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_remoteconnectionmanager_domain"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6"><div id="id_filter_remoteconnectionmanager_username"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div id="id_remoteconnectionmanager_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_remoteconnectionmanager" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>이벤트 유형</th>
+                            <th>컴퓨터</th>
+                            <th>원격지 IP</th>
+                            <th>국가</th>
+                            <th>도메인</th>
+                            <th>사용자</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

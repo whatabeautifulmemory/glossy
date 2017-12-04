@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}방화벽 이벤트{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/firewall.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1>방화벽 이벤트</h1>
+
+    <div class="x_panel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#id_dashboard" aria-controls="dashboard" role="tab"
+                                                      data-toggle="tab">방화벽 현황</a></li>
+            <li role="presentation"><a href="#id_detail" aria-controls="detail" role="tab"
+                                       data-toggle="tab">이벤트 상세분석</a></li>
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="id_dashboard">
+                <br>
+                <div>
+                    <table id="id_network" class="table table-bordered table-hover">
+
+                        <thead>
+                        <tr class="active">
+                            <th width="20%">구분</th>
+                            <th width="40%">홈 또는 회사(개인) 네트워크</th>
+                            <th width="40%">공용 네트워크</th>
+                            {#
+                            <th width="30%">도메인 네트워크</th>
+                            #}
+                        </tr>
+                        <tr>
+                            <td class="active">방화벽 설정</td>
+                            <td id="private_status"></td>
+                            <td id="public_status"></td>
+                            {#
+                            <td id="domain_status"></td>
+                            #}
+
+                        </tr>
+                        <!--<tr>-->
+                            <!--<td class="active">네트워크 연결</td>-->
+                            <!--<td id="private_network">-</td>-->
+                            <!--<td id="public_network">-</td>-->
+                            <!--{#-->
+                            <!--<td id="domain_network">-</td>-->
+                            <!--#}-->
+                        <!--</tr>-->
+                        </thead>
+                    </table>
+
+                </div>
+                <div>
+                    <table id="id_table_list" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>작업</th>
+                            <th>방향</th>
+                            <th>프로그램</th>
+                            <th>프로토콜</th>
+                            <th>로컬주소</th>
+                            <th>로컬포트</th>
+                            <th>원격주소</th>
+                            <th>원격포트</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="9">데이터를 불러오고 있습니다...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane" id="id_detail">
+                <div class="panel panel-default glossy-filter-container">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                            <div class="col-lg-4 text-right">
+                                <button onclick="yadcf.exFilterExternallyTriggered(table_events);"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                </button>
+                                <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');"
+                                        class="btn btn-reset btn-sm">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row glossy-filter-row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div id="id_filter_source"></div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div id="id_filter_localtimecreated"></div>
+                            </div>
+                        </div>
+                        <div class="row glossy-filter-row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div id="id_filter_eventid"></div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div id="id_filter_computer"></div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div id="id_filter_action"></div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div id="id_filter_direction"></div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <div id="id_filter_protocol"></div>
+                            </div>
+                        </div>
+                        <div class="row glossy-filter-row">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div id="id_filter_rule_name"></div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <div id="id_filter_modifying_application"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="id_summary_chart" class="glossy-summary-chart"></div>
+
+                <div style="overflow:auto">
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+                            <th>일시</th>
+                            <th>이름</th>
+                            <th>작업</th>
+                            <th>방향</th>
+                            <th>프로그램</th>
+                            <th>프로토콜</th>
+                            <th>로컬주소</th>
+                            <th>로컬포트</th>
+                            <th>원격주소</th>
+                            <th>원격포트</th>
+                            <th>상태</th>
+                            <th>수정프로그램</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+

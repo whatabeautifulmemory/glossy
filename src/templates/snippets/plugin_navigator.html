@@ -1,0 +1,35 @@
+{% for k, v in plugins.items() %}
+    {% if v.children %}
+    <li>
+        <a href="#">
+            {% if v.icon %}
+                <i class="fa fa-{{ v.icon }}"></i>
+            {% endif %}
+            {{ k }} <span class="fa fa-chevron-down"></span>
+        </a>
+    {% else %}
+    <li>
+        <a href="/plugin/{{ v.plugin.name }}/">
+            {% if v.icon %}
+                <i class="fa fa-{{ v.icon }}"></i>
+            {% endif %}
+            {{ k }}
+        </a>
+    {% endif %}
+
+    {% if v.children %}
+        <ul class="nav child_menu">
+            {% for k_, v_ in v.children.items() %}
+                <li>
+                    <a href="/plugin/{{ v_.plugin.name }}/">
+                        {% if v_.icon %}
+                            <i class="fa fa-{{ v_.icon }}"></i>
+                        {% endif %}
+                        {{ k_ }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </li>
+{% endfor %}

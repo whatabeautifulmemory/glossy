@@ -1,0 +1,99 @@
+#id_json_editor{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#id_dialog_detail .modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#id_dialog_detail .modal-dialog {
+    /*margin: 0;*/
+    float: right;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    min-width: 50%;
+    max-width: 60%;
+    min-height: 100%;
+    max-height: 100%;
+    margin: auto;
+    overflow: auto;
+}
+
+#id_dialog_detail .modal-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*border: 2px solid #3c7dcf;*/
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#id_dialog_detail .modal-body {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+#id_dropzone {
+    border: 2px dotted #bbbbbb;
+    background: #eeeeee;
+    width: 100%;
+    height: 250px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    padding: 7%;
+}
+
+
+#id_dropzone.in {
+    /*width: 600px;*/
+    /*height: 200px;*/
+    /*line-height: 200px;*/
+    font-size: larger;
+    background: #cccccc;
+}
+
+#id_dropzone.hover {
+    background: lawngreen;
+}
+
+#id_dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+#id_dialog_upload_source_progress{
+    margin-top: 10px;
+    height: 24px;
+}
+
+.glossy-filter-container{
+    margin-top: 15px;
+}
+
+.glossy-filter-row {
+    margin-bottom: 10px;
+}
+
+.glossy-summary-chart{
+    height: 200px;
+}

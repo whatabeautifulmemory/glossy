@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %} | Glossy </title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/misc/favicon.ico" />
+
+    <!-- Bootstrap -->
+    <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href="/static/vendors/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/datatables/media/css/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/datatables/extensions/Buttons/css/buttons.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/datatables/extensions/Responsive/css/responsive.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/datatables/extensions/ColReorder/css/colReorder.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/datatables/extensions/Select/css/select.bootstrap.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/static/vendors/jquery-file-upload/css/jquery.fileupload.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/vendors/jquery-file-upload/css/jquery.fileupload-ui.css"/>
+
+    <!-- Custom Theme Style -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="/static/css/glossy.css" rel="stylesheet">
+
+    <link href="/static/vendors/sweetalert2/sweetalert2.css" rel="stylesheet">
+
+    <link href="/static/vendors/c3/c3.css" rel="stylesheet">
+    <link href="/static/vendors/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet">
+
+    <link href="/static/vendors/chosen/chosen.min.css" rel="stylesheet" type="text/css" />
+    {% block include_stylesheets %}{% endblock %}
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title">
+                    <a href="/" class="site_title"><i class="fa fa-windows"></i> <span>Glossy</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-folder-open-o"></i> Collect EVTX <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a onclick="add_windir_extx(); return false;">Add Local(windir) EVTX</a></li>
+                                    <li><a data-toggle="modal" data-target="#id_dialog_upload_source">Upload EVTX</a></li>
+                                    <li><a onclick="process_source(); return false;">Index EVTX</a></li>
+                                    <li><a onclick="reset_all(); return false;">Reset</a></li>
+                                </ul>
+                            </li>
+
+                            {% include "snippets/plugin_navigator.html" %}
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            {% block content %}{% endblock %}
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer class="hidden">
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+    <div id="id_dialog_upload_source" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">EVTX 파일 업로드</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="">
+                            <form id="id_dialog_upload_source_form" enctype="multipart/form-data">
+                                <input type="file" class="hidden" name="files[]" multiple>
+
+                                <div id="id_dropzone">
+                                    <div id="id_dropzone_description">
+                                        <i class="fa fa-upload" style="font-size: 6em;" aria-hidden="true"></i>
+                                        <p>분석 대상 파일 또는 디렉토리를 드래그 & 드롭하여 올릴 수 있습니다!</p>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div id="id_dialog_upload_source_progress" class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="id_dialog_detail" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"> 이벤트 상세 </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="id_json_editor"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="/static/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- js-cookie -->
+    <script type="text/javascript" src="/static/vendors/js-cookie/js-cookie.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+{#    <!-- FastClick -->#}
+    <script type="text/javascript" src="/static/vendors/fastclick/lib/fastclick.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script type="text/javascript" src="/static/js/custom.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/vue.js/vue.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/sweetalert2/sweetalert2.js"></script>
+    <script type="text/javascript" src="/static/vendors/sweetalert2/sweetalert2.common.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/axios/dist/axios.min.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/d3.v3/d3.min.js"></script>
+    <script type="text/javascript" src="/static/vendors/c3/c3.js" charset="UTF-8"></script>
+
+    <script type="text/javascript" src="/static/vendors/moment.js/moment.js"></script>
+    <script type="text/javascript" src="/static/vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/datatables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/media/js/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Buttons/js/dataTables.buttons.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Buttons/js/buttons.bootstrap.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Buttons/js/buttons.colVis.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Buttons/js/buttons.print.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Buttons/js/buttons.html5.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Responsive/js/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Responsive/js/responsive.bootstrap.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/ColReorder/js/dataTables.colReorder.js"></script>
+    <script type="text/javascript" src="/static/vendors/datatables/extensions/Select/js/dataTables.select.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/yadcf/jquery.dataTables.yadcf.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/chosen/chosen.jquery.min.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/ace/ace.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/jquery-ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/static/vendors/jquery-iframe-transport/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/static/vendors/jquery-file-upload/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/static/vendors/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
+    <script type="text/javascript" src="/static/vendors/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+    <script type="text/javascript" src="/static/vendors/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/numeral.js/numeral.min.js"></script>
+
+    <script type="text/javascript" src="/static/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/vendors/echarts/themes/wonderland.js"></script>
+
+    <script type="text/javascript" src="/static/js/glossy.js"></script>
+    <script type="text/javascript" src="/static/js/glossy.datatables-renderers.js"></script>
+
+    {% block include_scripts %}{% endblock %}
+
+</body>
+</html>

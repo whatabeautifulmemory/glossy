@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}자동실행 이벤트{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/autoruns.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>자동실행 이벤트</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_scheduler" aria-controls="scheduler" role="tab" data-toggle="tab">작업 스케줄러</a></li>
+                <li role="presentation" ><a href="#id_logon" aria-controls="logon" role="tab" data-toggle="tab">로그온</a></li>
+                <li role="presentation" ><a href="#id_bho" aria-controls="bho" role="tab" data-toggle="tab">BHO</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_scheduler">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_scheduler);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_scheduler);$('#id_scheduler .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_scheduler_source"></div></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_scheduler_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_scheduler_eventid"></div> </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_scheduler_computer"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_scheduler_status"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_scheduler_taskname"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_scheduler_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_scheduler" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+
+                            <th>상태</th>
+                            <th>Task 이름</th>
+							<th>Action 이름</th>
+
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_logon">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_logon);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_logon);$('#id_logon .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_logon_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_logon_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_logon_eventid"></div> </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_logon_computer"></div></div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_logon_type"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_logon_summary_chart" class="glossy-summary-chart"></div>
+
+                    <table id="id_table_logon" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+
+                            <th>타입</th>
+                            <th>경로</th>
+                            <th>이름</th>
+                            <th>프로그램</th>
+                            <th>프로세스명</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="10">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                <div role="tabpanel" class="tab-pane" id="id_bho">
+                    <div class="panel panel-default glossy-filter-container">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-8"><strong>필터링 도구</strong></div>
+                                <div class="col-lg-4 text-right">
+                                    <button onclick="yadcf.exFilterExternallyTriggered(table_bho);" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                    </button>
+                                    <button onclick="yadcf.exResetAllFilters(table_bho);$('#id_bho .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_bho_source"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_bho_localtimecreated"></div></div>
+                            </div>
+                            <div class="row glossy-filter-row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_bho_eventid"></div> </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_bho_computer"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="id_bho_summary_chart" class="glossy-summary-chart"></div>
+                    
+                    <table id="id_table_bho" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+
+                            <th>경로</th>
+                            <th>프로그램</th>
+                            <th>프로세스명</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+

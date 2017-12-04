@@ -1,0 +1,41 @@
+# visual cpp(2015) build tools required(Install Windows 8.1 SDK)
+# https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe?fixForIE=.exe
+
+# license - Apache License 2.0
+tornado
+
+# license - Apache License 2.0
+cython
+
+# license - GNU Lesser General Public License v3 or later (LGPLv3+)
+libevtx-python
+
+# license - MIT
+bottle
+
+# license - BSD
+jinja2
+
+# license - BSD
+lxml
+
+# license - Simplified BSD
+python-dateutil
+
+# license - MIT
+python-rapidjson
+
+# license - MIT
+pytz
+
+# license - ZPL
+ZODB
+
+# license - PSF
+pypiwin32
+
+# license - MIT
+ip2location
+
+# license - GPL
+https://github.com/pyinstaller/pyinstaller/archive/develop.zip

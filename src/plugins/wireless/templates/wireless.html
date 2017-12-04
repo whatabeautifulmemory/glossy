@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}무선랜 이벤트{% endblock %}
+
+{% block include_scripts %}
+    <script type="text/javascript" src="./static/wireless.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>무선랜 이벤트</h1>
+
+        <div class="x_panel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#id_dashboard" aria-controls="dashboard" role="tab"
+                                                          data-toggle="tab">무선랜 접속 현황</a></li>
+                <li role="presentation"><a href="#id_detail" aria-controls="detail" role="tab"
+                                           data-toggle="tab">이벤트 상세분석</a></li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="id_dashboard">
+                    <br>
+                    <div id='id_chart'>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr class="active"><th>접속 AP</th></tr>
+                                <tr>
+                                    <td align="center">
+                                        <div id='id_wireless_chart'></div>
+                                    </td>
+
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                    <div id ="id_wireless_list"></div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="id_detail">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table border="0" width="100%">
+                                <tr>
+                                    <td><b>필터링 도구</b></td>
+                                    <td align="right">
+                                        <button onclick="yadcf.exFilterExternallyTriggered(table_events);" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Filter
+                                        </button>
+                                        <button onclick="yadcf.exResetAllFilters(table_events);$('#id_detail .chosen-select').val('').trigger('chosen:updated');" class="btn btn-reset btn-sm">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> Reset
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_source"></div> </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><div id="id_filter_localtimecreated"></div></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_eventid"></div> </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_computer"></div></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_type"></div></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><div id="id_filter_ssid"></div> </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><div id="id_filter_bssid"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    <div id="id_detail_events_summary_chart" class="glossy-summary-chart"></div>
+                    <table id="id_table_events" class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>이벤트 파일</th>
+                            <th>Provider</th>
+                            <th>이벤트 ID</th>
+                            <th>컴퓨터</th>
+                            <th>타입</th>
+
+                            <th>프로필이름</th>
+                            <th>SSID</th>
+                            <th>BSSID</th>
+                            <th>BSSType</th>
+                            <th>PHYType</th>
+
+                            <th>암호화방식</th>
+                            <th>암호알고리즘</th>
+                            <th>일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="13">데이터를 불러오고 있습니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
