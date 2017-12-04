@@ -1,0 +1,6 @@
+.idea/
+kdfs2017/
+__pycache__
+test/
+/dist/
+src/output.html
