@@ -26,10 +26,10 @@ copy .\resources\vcredist_x64.exe .\dist\
 copy .\docs\user_guide.pdf .\dist\
 
 .\build_tools\verpatch\verpatch.exe .\dist\glossy.exe /va 0.0.0.1 ^
-  /s CompanyName    "????" ^
+  /s CompanyName    " " ^
+  /s LegalCopyright " " ^
   /s ProductName    "Glossy Event Log Forensics" ^
   /pv 0.0.0.1 ^
-  /s LegalCopyright "Copyright(c) 2017, ????, All Rights Reserved" ^
   /s Description    "Glossy Event Log Forensics : EVTX Analyzer"
 
 .\build_tools\resource_hacker\ResourceHacker.exe -log CONSOLE -action addoverwrite -open .\dist\glossy.exe -save .\dist\glossy.exe, -resource .\resources\glossy.exe.manifest -mask 24,1,1033
