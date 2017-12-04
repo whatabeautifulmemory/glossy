@@ -1,5 +1,5 @@
 # Glossy Event Log Forensics
-KDFS 2017 - 윈도우 이벤트 로그(.evtx) 분석 도구
+윈도우 이벤트 로그(EVTX) 분석 도구
 
 
 ## 기능
