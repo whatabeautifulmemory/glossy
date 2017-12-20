@@ -12,7 +12,6 @@ from bottle import route, run, static_file, jinja2_view, TEMPLATE_PATH, request,
     redirect
 
 from contrib import bottle_jsonrpc
-from contrib.bottle_jstree import get_directories
 from core.controller import GlossyCore
 from core.default_settings import DEFAULT_SETTINGS
 from core.rpc import GlossyRPC
@@ -33,25 +32,6 @@ SETTINGS = {}
 glossy_core = GlossyCore()
 rpc_client = GlossyRPC(glossy_core)
 
-
-@route('/listing')
-def listing():
-    response.content_type = 'application/json'
-
-    operation = request.GET.get("operation", None)
-    path = request.GET.get("id", None)
-
-    operation_map = {
-        "list_directories": lambda: get_directories(path),
-        "get_content": lambda: get_directories(path),
-    }
-
-    if operation not in operation_map:
-        return False
-
-    result = operation_map[operation]()
-
-    return rapidjson.dumps(result)
 
 
 @route('/static/<path:path>')
