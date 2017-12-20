@@ -1,5 +1,6 @@
 # Glossy Event Log Forensics
 윈도우 이벤트 로그(EVTX) 분석 도구
+![screenshot_index](https://raw.githubusercontent.com/fsi-yhkim/glossy/master/screenshots/index.png "screenshot_index")
 
 
 ## 기능
