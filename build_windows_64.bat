@@ -14,7 +14,7 @@ rmdir /S /Q dist
 mkdir build
 mkdir dist
 
-C:\Python36-64\Scripts\pyinstaller.exe --clean main.spec
+pyinstaller --clean main.spec
 copy .\dist\glossy.exe ..\dist\
 copy settings.json ..\dist\
 xcopy plugins ..\dist\plugins\ /s /h /e /k /f /c > NUL
@@ -23,7 +23,6 @@ xcopy data ..\dist\data\ /s /h /e /k /f /c > NUL
 cd ..
 copy .\resources\vcredist_x86.exe .\dist\
 copy .\resources\vcredist_x64.exe .\dist\
-copy .\docs\user_guide.pdf .\dist\
 
 .\build_tools\verpatch\verpatch.exe .\dist\glossy.exe /va 0.0.0.1 ^
   /s CompanyName    " " ^
