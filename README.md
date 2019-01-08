@@ -29,3 +29,6 @@
 ## 관련 링크 
 - KDFS 2017 디지털 포렌식 챌린지 : http://forensic.korea.ac.kr/2017/KDFS_2017_challenge.html
 - 고려대학교 디지털포렌식연구센터 : http://forensic.korea.ac.kr/project/2017_challenge.html
+
+## etc
+This site or product includes IP2Location LITE data available from <a href="https://lite.ip2location.com">https://lite.ip2location.com</a>.
