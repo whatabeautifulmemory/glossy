@@ -26,6 +26,9 @@
 - 무선 네트워크 연결정보
 - 자동실행(스케줄러 / Run / BHO)
 
+## 분석보고서
+- [KDFS 2017 분석보고서 v0.1.pdf](https://github.com/whatabeautifulmemory/glossy/files/13562844/KDFS.2017.v0.1.pdf) 
+
 ## 관련 링크 
 - KDFS 2017 디지털 포렌식 챌린지 : http://forensic.korea.ac.kr/2017/KDFS_2017_challenge.html
 - 고려대학교 디지털포렌식연구센터 : http://forensic.korea.ac.kr/project/2017_challenge.html
